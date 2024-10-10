@@ -155,6 +155,121 @@ uninstall_iptables() {
         clear
     fi
 }
+# Define the submenu for Other Options
+function other_options_menu() {
+    while true; do
+        other_choice=$(whiptail --backtitle "Welcome to Hiddify Relay Builder" --title "Other Options" --menu "Please choose one of the following options:" 20 60 10 \
+        "DNS" "Configure DNS" \
+        "Update" "Update Server" \
+        "Ping" "Ping to check internet connectivity" \
+        "DeprecatedTunnel" "No longer supported"\
+        "Back" "Return to Main Menu" 3>&1 1>&2 2>&3)
+
+        # Check the return value of the whiptail command
+        if [ $? -eq 0 ]; then
+            # Check if the user selected a valid option
+            case $other_choice in
+                DNS)
+                    configure_dns
+                    ;;
+                Update)
+                    update_server
+                    ;;
+                Ping)
+                    ping_websites
+                    ;;
+                DeprecatedTunnel)
+                    DeprecatedTunnel
+                    ;;
+                Back)
+                    menu
+                    ;;
+                *)
+                    whiptail --title "Invalid Option" --msgbox "Please select a valid option." 8 60
+                    ;;
+            esac
+        else
+            exit 1
+        fi
+    done
+}
+
+#################################
+# Define the main graphical menu
+function DeprecatedTunnel() {
+    while true; do
+        choice=$(whiptail --backtitle "Welcome to Hiddify Relay Builder" --title "Choose Your Tunnel Mode" --menu "Please choose one of the following options:" 20 60 10 \
+        "Socat" "Manage Socat Tunnel" \
+        "WST" "Manage Web Socket Tunnel"\
+        "Back" "Return to Main Menu" 3>&1 1>&2 2>&3)
+
+        # Check the return value of the whiptail command
+        if [ $? -eq 0 ]; then
+            # Check if the user selected a valid option
+            case $choice in
+                Socat)
+                    socat_menu
+                    ;;
+                WST)
+                    wstunnel_menu
+                    ;;
+                Back)
+                    other_options_menu
+                    ;;
+                *)
+                    whiptail --title "Invalid Option" --msgbox "Please select a valid option." 8 60
+                    ;;
+            esac
+        else
+            exit 1
+        fi
+    done
+}
+
+#################################
+# Define the main graphical menu
+function menu() {
+    while true; do
+        choice=$(whiptail --backtitle "Welcome to Hiddify Relay Builder" --title "Choose Your Tunnel Mode" --menu "Please choose one of the following options:" 20 60 10 \
+        "IP-Tables" "Manage IP-Tables Tunnel" \
+        "GOST" "Manage GOST Tunnel" \
+        "Dokodemo-Door" "Manage Dokodemo-Door Tunnel" \
+        "HA-Proxy" "Manage HA-Proxy Tunnel" \
+        "Options" "Additional Configuration Options" \
+        "Quit" "Exit From The Script" 3>&1 1>&2 2>&3)
+
+        # Check the return value of the whiptail command
+        if [ $? -eq 0 ]; then
+            # Check if the user selected a valid option
+            case $choice in
+                IP-Tables)
+                    iptables_menu
+                    ;;
+                GOST)
+                    gost_menu
+                    ;;
+                Dokodemo-Door)
+                    dokodemo_menu
+                    ;;
+                HA-Proxy)
+                    haproxy_menu
+                    ;;
+                Options)
+                    other_options_menu
+                    ;;
+                Quit)
+                    exit 0
+                    ;;
+                *)
+                    whiptail --title "Invalid Option" --msgbox "Please select a valid option." 8 60
+                    exit 1
+                    ;;
+            esac
+        else
+            exit 1
+        fi
+    done
+}
 
 # Call the menu function
 menu
