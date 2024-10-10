@@ -16,9 +16,12 @@
 # Hiddify Relay builder
 This script provides you with the following methods to create a tunnel between a relay server and your main server.
 
+
+bash -c "$(curl -L https://raw.githubusercontent.com/hatinati2/hiddify-relay/main/install.sh)"
+
 <div align=left>
  
-`1. IP-Tables`<br>`2. GOST`<br>`3. Dokodemo-Door`<br>`4. HA-Proxy`<br>`5. Socat`<br>`6. WST`
+`1. IP-Tables`<br>`
 </div>
 
 ## ⚙️ Tutorials on setup and installation
