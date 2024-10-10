@@ -232,9 +232,6 @@ function menu() {
     while true; do
         choice=$(whiptail --backtitle "Welcome to Hiddify Relay Builder" --title "Choose Your Tunnel Mode" --menu "Please choose one of the following options:" 20 60 10 \
         "IP-Tables" "Manage IP-Tables Tunnel" \
-        "GOST" "Manage GOST Tunnel" \
-        "Dokodemo-Door" "Manage Dokodemo-Door Tunnel" \
-        "HA-Proxy" "Manage HA-Proxy Tunnel" \
         "Options" "Additional Configuration Options" \
         "Quit" "Exit From The Script" 3>&1 1>&2 2>&3)
 
@@ -244,15 +241,6 @@ function menu() {
             case $choice in
                 IP-Tables)
                     iptables_menu
-                    ;;
-                GOST)
-                    gost_menu
-                    ;;
-                Dokodemo-Door)
-                    dokodemo_menu
-                    ;;
-                HA-Proxy)
-                    haproxy_menu
                     ;;
                 Options)
                     other_options_menu
